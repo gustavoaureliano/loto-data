@@ -76,6 +76,7 @@ function Home(props) {
         }]
     }
 
+    //opções react-select
     const options = props.numConcursos.map(concurso => {
             return { value: concurso, label: concurso }
     })
@@ -178,7 +179,8 @@ export async function getStaticProps() {
         props: {
             concursos,
             numConcursos
-        }
+        },
+        revalidate: 86400
     }
 }
 
