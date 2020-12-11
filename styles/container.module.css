@@ -1,0 +1,19 @@
+.container {
+    max-width: 1200px;
+    width: 90%;
+    background: white;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.308);
+    padding: 25px;
+    margin: 20px auto;
+    border-radius: 20px;
+}
+
+.container::before , .container::after {
+    content: '';
+    display: table;
+}
+
+.container::after {
+    clear: both;
+}

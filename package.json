@@ -1,0 +1,32 @@
+{
+  "name": "loto-data",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gustavoaureliano/loto-data.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gustavoaureliano/loto-data/issues"
+  },
+  "homepage": "https://github.com/gustavoaureliano/loto-data#readme",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "chart.js": "^2.9.4",
+    "cheerio": "^1.0.0-rc.3",
+    "next": "^10.0.3",
+    "react": "^17.0.1",
+    "react-chartjs-2": "^2.11.1",
+    "react-dom": "^17.0.1",
+    "react-select": "^3.1.1"
+  }
+}

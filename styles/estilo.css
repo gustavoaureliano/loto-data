@@ -1,0 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: rgb(226, 184, 231);
+    font-family: 'Roboto', sans-serif;
+}

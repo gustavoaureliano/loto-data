@@ -1,0 +1,64 @@
+.concursos {
+    text-align: center;
+}
+
+.concursos fieldset {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    border: none;
+}
+
+.concursos legend {
+    margin: 10px auto;
+}
+
+.concursos label {
+    margin: 10px;
+}
+
+.concursos p {
+    font-size: 24px;
+    display: flex;
+}
+
+.concursos select {
+    padding: 5px;
+    font-size: 16px;
+    background: white;
+    border: 1px solid #c3c3c3;
+    outline: none;
+    transition: all .3s ease-out;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.concursos select:hover {
+    background: rgb(245, 245, 245);
+}
+
+.btnConfirma {
+    text-align: center;
+}
+
+.btnConfirma button{
+    font-size: 32px;
+    border: none;
+    padding: 15px;
+    border-radius: 20px;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.308);
+    background-color: white;
+    transition: all .2s ease-out;
+}
+
+.btnConfirma button:hover {
+    background: #8b2bff;
+    color: white;
+}
+
+.select {
+    width: 120px;
+}
