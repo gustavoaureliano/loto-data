@@ -8,6 +8,7 @@
     justify-content: center;
     box-sizing: border-box;
     border: none;
+    flex-wrap: wrap;
 }
 
 .concursos legend {
