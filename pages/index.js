@@ -98,15 +98,17 @@ function Home(props) {
     return (
         <div>
             <Head>
+                <title>LotoData</title>
+                <meta name="description" content="Neste site é possivel encontrar alguns dados sobre os concursos da lotofácil" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" />
                 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
             </Head>
             <Header>Resultados da lotofácil</Header>
             <Container>
                 <form className={styles.concursos}>
-                    <fieldset value='oi'><legend>Intervalo de concursos</legend>
+                    <fieldset><legend>Intervalo de concursos</legend>
                         <p>
-                            <label for='de'>De: </label>
+                            <label>De: 
                             <Select className={styles.select} 
                                 styles={customStyles}
                                 options={options}
@@ -115,9 +117,10 @@ function Home(props) {
                                     setnInicial(Number(valorSelecionado.value));
                                 }}
                                 />
+                            </label>
                         </p>
                         <p>
-                            <label for='ate'>até: </label>  
+                            <label>até:   
                             <Select className={styles.select} 
                                 styles={customStyles}
                                 options={options}
@@ -126,6 +129,7 @@ function Home(props) {
                                     setnFinal(Number(valorSelecionado.value));
                                 }}
                             />
+                            </label>
                         </p>
                     </fieldset>
                 </form>
