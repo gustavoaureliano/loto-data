@@ -13,9 +13,8 @@ import styles from '../styles/home.module.css';
 
 function contarConcursos(nInicial, nFinal, listaConcursos) {
     const numeros = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
-    const vezes = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-    const intervalo = listaConcursos.slice(nInicial-1, nFinal); 
-    const numerosSorteados = [];
+    const frequencia = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    const intervalo = listaConcursos.slice(nInicial-1, nFinal);
 
     console.log(`Contando as ocorrências dos números dos concursos no intervalo de ${nInicial} até ${nFinal}`);
     intervalo.forEach( concurso => {
@@ -23,7 +22,7 @@ function contarConcursos(nInicial, nFinal, listaConcursos) {
             nSorteado = Number(nSorteado);
             numeros.forEach ( (numSorteio, i) => {
                 if(numSorteio === nSorteado) {
-                    vezes[i] += 1;
+                    frequencia[i] += 1;
                 }
             })
         } )
@@ -31,27 +30,26 @@ function contarConcursos(nInicial, nFinal, listaConcursos) {
 
     console.log('Retornando resultados');
     return {
-        resultado: vezes
+        resultado: frequencia
     }
 
 }
 
 function Home(props) {
-    const [vezes, setVezes]  = useState([])
+    const { concursos, numConcursos } = props;
+    const [frequencia, setFrequencia]  = useState([])
     const [nFinal, setnFinal] = useState(0)
     const [nInicial, setnInicial] = useState(0)
+    const [intervaloValido, setIntervaloValido] = useState(true)
 
     function changeGraphic() {
-        if (nFinal === 0 || nInicial === 0) {
-            alert('Escolha um intervalo!!!');
-            return
+        if (nFinal < nInicial || (nFinal === 0 || nInicial === 0)) {
+            setIntervaloValido(false)
+        }else {
+            setIntervaloValido(true)
         }
-        if (nFinal < nInicial) {
-            alert('O número final não pode ser maior que o número inicial');
-            return
-        }
-        const { resultado } = contarConcursos(nInicial,nFinal, props.concursos);
-        setVezes(resultado)
+        const { resultado } = contarConcursos(nInicial,nFinal, concursos);
+        setFrequencia(resultado)
 
     }
 
@@ -68,16 +66,56 @@ function Home(props) {
     const data = {
         labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],
         datasets: [{
-            label: "Quantidade sorteada",
-            data: vezes,
+            label: "Frquência do número",
+            data: frequencia,
             backgroundColor: backgroundColorList,
             borderColor: borderColorList,
             borderWidth: 1
         }]
     }
 
+    const optionGrafico = {
+            title: {
+                text: "Números sorteados no intervalo escolhido",
+                display: true,
+                fontSize: 24
+            },
+            maintainAspectRatio: false,
+            responsive: true,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        fontSize: 18,
+                        fontColor: '#8b2bff',
+                        callback: function(value, index, values) {
+                            let num = Number(value);
+                            if (num % 1 === 0) {
+                                return `${num} ${(num === 1)?"vez":"vezes"}`;
+                            }
+                        }
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontSize: 16,
+                        fontColor: '#7a1aee'
+                    }
+                }]
+            },
+            tooltips:{
+                mode: 'index',
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        console.log(tooltipItem)
+                        console.log(data)
+                        return ` Sorteado ${data.datasets[0].data[tooltipItem.index]} vezes`
+                    }
+                }
+            }
+    }
+
     //opções react-select
-    const options = props.numConcursos.map(concurso => {
+    const optionsRSelect = numConcursos.map(concurso => {
             return { value: concurso, label: concurso }
     })
     
@@ -111,7 +149,7 @@ function Home(props) {
                             <label>De: 
                             <Select className={styles.select} 
                                 styles={customStyles}
-                                options={options}
+                                options={optionsRSelect}
                                 placeholder={'Nº...'} 
                                 onChange={ valorSelecionado => {
                                     setnInicial(Number(valorSelecionado.value));
@@ -123,7 +161,7 @@ function Home(props) {
                             <label>até:   
                             <Select className={styles.select} 
                                 styles={customStyles}
-                                options={options}
+                                options={optionsRSelect}
                                 placeholder={'Nº...'}
                                 onChange={ valorSelecionado => {
                                     setnFinal(Number(valorSelecionado.value));
@@ -132,6 +170,7 @@ function Home(props) {
                             </label>
                         </p>
                     </fieldset>
+                    {intervaloValido?<></>:<p>Selecione um intervalo válido!</p>}
                 </form>
             </Container>
             <div className={styles.btnConfirma}>
@@ -142,15 +181,7 @@ function Home(props) {
                     data={data}
                     width={400}
                     height={400}
-                    options={{
-                        title: {
-                            text: "Números sorteados no intervalo escolhido",
-                            display: true,
-                            fontSize: 24
-                        },
-                        maintainAspectRatio: false,
-                        responsive: true
-                    }}
+                    options={optionGrafico}
                 />
             </Container>
         </div>
